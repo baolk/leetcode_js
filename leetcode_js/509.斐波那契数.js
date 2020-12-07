@@ -10,27 +10,25 @@
  * @return {number}
  */
 
-
+//动态规划：recursion + memoization (递归+记忆化)
 var fib = function(N) {
+    if(N <=1) return N;
 
-  // if(N==1 || N==0){	
-  //   return N	
-  // }	
-  // // 重复的计算 可以使用缓存优化	
-  // return fib(N - 1) + fib(N - 2)	
-  // 递推	
+    const memo = [];
+    memo[0] = 0;
+    memo[1] = 1;
 
-  // O(n)	
-  let cache = []	
-  for(let i=0;i<=N;i++){	
-     if(i==1 || i==0){	
-      cache[i] = i	
-    }else{	
-      cache[i] = cache[i-1]+cache[i-2]	
-    }	
-  }	
-  return cache[N]	
+    function memoize(number){
+      if(memo[number] !== undefined){
+        return memo[number];
+      }else{
+        memo[number] = memoize(number-1) + memoize(number -2);
+        return memo[number];
+      }
+    }
 
+    const result = memoize(N);
+    return result;
 };
 // @lc code=end
 
