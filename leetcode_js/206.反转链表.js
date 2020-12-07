@@ -16,19 +16,28 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+//需要三个指针
 var reverseList = function(head){
-  let cur = head
-  let prev = null
+  //写法1:传统的写法
+  let prev = null;
+  let curr = head;
+  let next = head;
 
-  while(cur!==null){
-    // 解构
-    [cur.next, prev, cur] = [prev, cur, cur.next]
-    // let next = cur.next
-    // cur.next = prev
-    // prev = cur
-    // cur = next
+  while(curr !== null){
+    next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
   }
-  return prev
+  return prev;
+
+  //写法2:解构赋值，可以直接交换，不需要临时变量
+  // let prev = null;
+  // let curr = head;
+  // while(curr !== null){
+  //   [curr.next,prev,curr] = [prev,curr,curr.next];
+  // }
+  // return prev;
 };
 // @lc code=end
 

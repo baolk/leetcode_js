@@ -17,41 +17,34 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var detectCycle1 = function(head) {
-    // 你用对象Map也可以的
-    let cache = new Set()
-    while(head){
-      if(cache.has(head)){
-        return head
-      }else{
-        cache.add(head)
-      }
-      head = head.next
-    }
-    return null
-};
+//快慢指针
+//使用环形链表1判断是否有环
+//使用弗洛伊德算法确定哪个环
 var detectCycle = function(head) {
-    // 操场跑圈，只要仕个圈，跑的快的，一定会把跑的慢的套圈
-    let slow = head
-    let fast = head
-    let start = head
-    while(fast && fast.next){
-      fast = fast.next.next
-      slow = slow.next
-      if(fast===slow){
-        // return true
+  if(head === null)return null;
 
-        while(slow && start){
-          if(slow===start){
-            return slow
-          }
-          slow = slow.next
-          start = start.next
-        }
-
-      }
+  let slow = head;
+  let fast = head;
+  let isCycle = false;
+  while(fast.next !== null && fast.next.next !== null){
+    slow = slow.next;
+    fast = fast.next.next;
+    if(slow === fast){
+      isCycle = true;
+      break;
     }
-    return null
+  }
+
+  if(!isCycle){
+    return null;
+  }else{
+    fast = head;
+    while(slow !== fast){
+      slow =  slow.next;
+      fast =  fast.next;
+    }
+    return fast;
+  }
 };
 
 
